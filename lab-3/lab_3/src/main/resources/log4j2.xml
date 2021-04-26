@@ -8,7 +8,7 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="lab1" level="debug" additivity="true">
+        <Logger name="com.epam.lab3" level="debug" additivity="true">
             <AppenderRef ref="Console"/>
         </Logger>
 
@@ -16,5 +16,4 @@
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>
-
 </Configuration>
