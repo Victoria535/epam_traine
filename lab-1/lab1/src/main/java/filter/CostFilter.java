@@ -3,13 +3,13 @@ package filter;
 import model.flowers.Flower;
 
 /**
- * Stem length filter.
+ * Cost filter.
  * <p>
  * Date: apr 16, 2021
  *
  * @author Symaniuk Victoryia
  */
-public class StemLengthFilter implements Filter {
+public class CostFilter implements Filter {
     /**
      * Field start filter.
      */
@@ -25,13 +25,13 @@ public class StemLengthFilter implements Filter {
      * @param start  double start filter
      * @param finish double finish filter
      */
-    public StemLengthFilter(double start, double finish) {
+    public CostFilter(double start, double finish) {
         this.start = start;
         this.finish = finish;
     }
 
     @Override
     public boolean check(Flower flower) {
-        return flower.getStemLength() >= start && flower.getStemLength() <= finish;
+        return flower.getCost() >= start && flower.getCost() <= finish;
     }
 }

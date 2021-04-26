@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * Bouquet.
+ * <p>
+ * Date: apr 16, 2021
+ *
+ * @author Symaniuk Victoryia
+ */
 public class Bouquet extends AbstractBouquet {
     @Override
     public String toString() {
@@ -10,4 +17,3 @@ public class Bouquet extends AbstractBouquet {
                 .append("\naccessory: ").append(getAccessory()).toString();
     }
 }
-

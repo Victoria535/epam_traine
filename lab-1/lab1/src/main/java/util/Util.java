@@ -2,17 +2,24 @@ package util;
 
 import comparators.FreshComparator;
 import exceptions.FilterException;
+import filter.CostAndStemLengthFilter;
 import filter.StemLengthFilter;
 import model.Bouquet;
 import model.flowers.Flower;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
+import static worker.Printable.printInfo;
+import static worker.Printable.printResult;
+
+/**
+ * Util.
+ * <p>
+ * Date: apr 16, 2021
+ *
+ * @author Symaniuk Victoryia
+ */
 public final class Util {
-    private static final Logger LOGGER = Logger.getLogger(Util.class.toString());
 
     /**
      * Constructor.
@@ -21,97 +28,71 @@ public final class Util {
     }
 
     /**
-     * This method sort the bouquet by fresh.
+     * This method sort bouquet by fresh.
      *
      * @param bouquet Bouquet
      */
     public static void sortByFresh(Bouquet bouquet) {
-        LOGGER.info("\nsort: ");
+        printInfo("\nsort by fresh: ");
 
         bouquet.sort(new FreshComparator());
-        for (Flower fl : bouquet.getFlowers()) {
-            LOGGER.info(fl.getName() + ". fresh = " + fl.getFresh());
+        for (Flower flower : bouquet.getFlowers()) {
+            printInfo("{}. fresh = {}", flower.getName(), flower.getFresh());
         }
     }
 
     /**
-     * This method is used to find the length of stem in the interval.
+     * This method use for search stem length in interval.
      *
-     * @param bouquet Bouquet the bouquet of flowers
-     * @param begin   int the beginning of the interval
-     * @param end     int the ending of the interval
-     * @thows FilterException if the beginning of the interval less than ending of the interval
-     * @see Bouquet
+     * @param bouquet Bouquet bouquet
+     * @param begin   int the beginning of interval
+     * @param end     int the ending of interval
+     * @throws FilterException if start of interval less then end of interval
      */
     public static void findStemLength(Bouquet bouquet, int begin, int end) throws FilterException {
-        LOGGER.info("\nFind the length of stem from " + begin + " to " + end + ": ");
-        List<Flower> flowers = new ArrayList<>();
+        printInfo("\nfind stem length from {} to {}: ", begin, end);
 
         checkInterval(begin, end);
 
-        int countFlower = bouquet.find(flowers, new StemLengthFilter(begin, end));
-        for (int i = 0; i < countFlower; i++) {
-            LOGGER.info(flowers.get(i).getName() + ". stem length = " + flowers.get(i).getStemLength());
+        List<Flower> filterFlowers = bouquet.find(new StemLengthFilter(begin, end));
+        for (Flower filterFlower : filterFlowers) {
+            printInfo("{} stem length = {}", filterFlower.getName(), filterFlower.getStemLength());
         }
     }
 
     /**
-     * This method is used to call method find the length of stem and cost in the interval.
+     * This method use for search stem length and cost in interval.
      *
-     * @param bouquet   Bouquet the bouquet of flowers
-     * @param beginStem int the beginning of the interval length of stem
-     * @param endStem   int the ending of the interval length of stem
-     * @param beginCost int the beginning of the interval of cost
-     * @param endCost   int the ending of the interval of cost
-     * @throws FilterException if the beginning of the interval less than ending of the interval
-     * @see Bouquet
+     * @param bouquet   Bouquet bouquet
+     * @param beginStem int the beginning of interval stem length
+     * @param endStem   int the ending of interval stem length
+     * @param beginCost int the beginning of interval cost
+     * @param endCost   int the ending of interval cost
+     * @throws FilterException if start of interval less then end of interval
      */
     public static void findStemLengthAndCost(Bouquet bouquet, int beginStem, int endStem,
                                              int beginCost, int endCost) throws FilterException {
-        LOGGER.info("\nFind the length of stem from " + beginStem + " to " + endStem
-                + " and cost from " + beginCost + " to " + endCost + ": ");
-
-        List<Flower> flowers = bouquet.getFlowers();
+        printInfo("\nfind stem length from {} to {} and find cost from {} to {}",
+                beginStem, endStem, beginCost, endCost);
 
         checkInterval(beginStem, endStem);
         checkInterval(beginCost, endCost);
 
-        List<Flower> list = filterStemLengthAndCost(beginStem, endStem, beginCost, endCost, flowers);
+        List<Flower> flowerList = bouquet.find(new CostAndStemLengthFilter(beginCost, endCost, beginStem, endStem));
 
-        for (Flower flower : list) {
-            LOGGER.info(String.valueOf(flower));
-        }
-    }
-
-    /**
-     * This method is used to find the length of stem and cost in the interval.
-     *
-     * @param beginStem int the beginning of the interval length of stem
-     * @param endStem   int the ending of the interval length of stem
-     * @param beginCost int the beginning of the interval of cost
-     * @param endCost   int the ending of the interval of cost
-     * @param flowers   List<Flower> list of the flowers
-     * @return List<Flower> found list of the flowers
-     */
-    private static List<Flower> filterStemLengthAndCost(int beginStem, int endStem,
-                                                        int beginCost, int endCost,
-                                                        List<Flower> flowers) {
-        return flowers.stream()
-                .filter(flower -> flower.getStemLength() > beginStem && flower.getStemLength() < endStem)
-                .filter(flower -> flower.getCost() > beginCost && flower.getCost() < endCost)
-                .collect(Collectors.toList());
+        printResult(flowerList);
     }
 
     /**
      * This method check interval.
      *
-     * @param start  start of interval
-     * @param finish finish of interval
-     * @throws FilterException start of interval should be less then end of interval
+     * @param begin int the beginning of interval
+     * @param end   int the ending of interval
+     * @throws FilterException if start of interval less then end of interval
      */
-    private static void checkInterval(int start, int finish) throws FilterException {
-        if (start > finish) {
-            throw new FilterException("Start of interval should be less then end of interval", start, finish);
+    private static void checkInterval(int begin, int end) throws FilterException {
+        if (begin > end) {
+            throw new FilterException("Start of interval should be less then end of interval", begin, end);
         }
     }
 }

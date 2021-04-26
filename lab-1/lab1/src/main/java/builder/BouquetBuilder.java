@@ -1,23 +1,27 @@
 package builder;
 
-import exceptions.FlowerFreshException;
-import factory.FlowerFactory;
+import exceptions.InvalidNumberException;
 import model.Bouquet;
 import model.accessories.Accessory;
-import model.enums.FlowerType;
-import model.enums.RoseType;
 import model.flowers.Flower;
-import model.flowers.Rose;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.logging.Logger;
 
+import static builder.randomizer.FlowerRandomizer.randomFlower;
+import static builder.randomizer.NumberRandomizer.randomNumber;
+
+/**
+ * Bouquet builder.
+ * <p>
+ * Date: apr 16, 2021
+ *
+ * @author Symaniuk Victoryia
+ */
 public final class BouquetBuilder {
-    private static final Random RANDOM = new Random();
-    private static final Logger LOGGER = Logger.getLogger(String.valueOf(BouquetBuilder.class));
 
+    /**
+     * Constructor.
+     */
     private BouquetBuilder() {
     }
 
@@ -26,13 +30,29 @@ public final class BouquetBuilder {
      *
      * @param count       int                    count of flowers in bouquet
      * @param accessories List<Accessory>  list of accessories for new bouquet
-     * @return new Bouquet
+     * @return Bouquet new bouquet
      * @see Accessory
      */
     public static Bouquet newBouquet(int count, List<Accessory> accessories) {
+        checkNumber(count);
         List<Flower> flowers = randomFlower(count);
 
         return buildBouquet(accessories, flowers, getFlowerSum(flowers) + getAccessorySum(accessories));
+    }
+
+    /**
+     * This method check count of flowers in bouquet.
+     *
+     * @param count count of flowers
+     */
+    private static void checkNumber(int count) {
+        try {
+            if (count < 0) {
+                throw new InvalidNumberException("Number should be more than 0", count);
+            }
+        } catch (InvalidNumberException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -54,77 +74,6 @@ public final class BouquetBuilder {
     }
 
     /**
-     * This method is used to get a random number.
-     *
-     * @return int random number
-     */
-    private static int randomNumber(int number) {
-        return RANDOM.nextInt(number);
-    }
-
-    /**
-     * This method get random flowers in bouquet.
-     *
-     * @param count count flowers in bouquet
-     */
-    private static List<Flower> randomFlower(int count) {
-        List<Flower> flowers = new ArrayList<>();
-        FlowerFactory flowerFactory = new FlowerFactory();
-
-        for (int i = 0; i < count; i++) {
-            int index = randomNumber(FlowerType.values().length);
-            FlowerType flowerType = FlowerType.values()[index];
-
-            if (flowerType.equals(FlowerType.ROSE)) {
-                randomRose(flowers, flowerFactory, index);
-            } else {
-                Flower flower = flowerFactory.createFlower(flowerType);
-                flowers.add(flower);
-            }
-        }
-        randomParasite(count, flowers);
-        return flowers;
-    }
-
-    private static void randomParasite(int count, List<Flower> flowers) {
-        flowers.get(randomNumber(count)).setParasite(true);
-        try {
-            checkFlowersForParasite(flowers);
-        } catch (FlowerFreshException freshException) {
-            LOGGER.warning(freshException.getMessage());
-        }
-    }
-
-
-    private static void checkFlowersForParasite(List<Flower> flowers) throws FlowerFreshException {
-        for (Flower flower : flowers) {
-            if (checkParasite(flower)) {
-                flower.setParasite(false);
-                flower.setFresh(1);
-                throw new FlowerFreshException("Cannot add not fresh flower in bouquet. Parasite is on this flower.");
-            }
-        }
-    }
-
-    private static boolean checkParasite(Flower flower) {
-        return flower.isParasite();
-    }
-
-    private static void randomRose(List<Flower> flowers, FlowerFactory flowerFactory, int index) {
-        int typeRose = randomTypeRose();
-        Rose rose = (Rose) flowerFactory.createFlower(FlowerType.values()[index]);
-        rose.setRoseColor(RoseType.values()[typeRose]);
-        flowers.add(rose);
-    }
-
-    /**
-     * This method get random type rose in bouquet.
-     */
-    private static int randomTypeRose() {
-        return randomNumber(RoseType.values().length);
-    }
-
-    /**
      * This method get cost flowers in bouquet.
      *
      * @param flowers List<Flower> list of flowers in bouquet
@@ -143,5 +92,4 @@ public final class BouquetBuilder {
     private static int getAccessorySum(List<Accessory> accessories) {
         return accessories.stream().mapToInt(Accessory::getCost).sum();
     }
-
 }

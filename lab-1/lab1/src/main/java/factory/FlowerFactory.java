@@ -6,12 +6,19 @@ import model.flowers.Flower;
 import model.flowers.Rose;
 import model.flowers.Tulip;
 
-import java.util.logging.Logger;
+import static worker.Printable.printInfo;
 
-public class FlowerFactory {
-    private static final Logger LOGGER = Logger.getLogger(FlowerFactory.class.toString());
+/**
+ * Flower factory for create flowers.
+ * <p>
+ * Date: apr 16, 2021
+ *
+ * @author Symaniuk Victoryia
+ */
+public class FlowerFactory implements Factory<Flower, FlowerType> {
 
-    public Flower createFlower(FlowerType type) {
+    @Override
+    public Flower create(FlowerType type) {
         Flower flower = null;
         switch (type) {
             case ROSE:
@@ -36,7 +43,7 @@ public class FlowerFactory {
                 flower.setStemLength(20);
                 break;
             default:
-                LOGGER.info("Unknown value.");
+                printInfo("Unknown value.");
         }
         return flower;
     }

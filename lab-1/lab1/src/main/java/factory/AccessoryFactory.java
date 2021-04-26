@@ -5,13 +5,20 @@ import model.accessories.Ribbon;
 import model.accessories.Toy;
 import model.accessories.Wrapper;
 import model.enums.AccessoryType;
+import worker.Printable;
 
-import java.util.logging.Logger;
 
-public class AccessoryFactory {
-    private static Logger logger = Logger.getLogger(AccessoryFactory.class.toString());
+/**
+ * Accessory factory for create accessories.
+ * <p>
+ * Date: apr 16, 2021
+ *
+ * @author Symaniuk Victoryia
+ */
+public class AccessoryFactory implements Factory<Accessory, AccessoryType> {
 
-    public Accessory createAccessories(AccessoryType type) {
+    @Override
+    public Accessory create(AccessoryType type) {
         Accessory accessory = null;
         switch (type) {
             case WRAPPER:
@@ -30,9 +37,8 @@ public class AccessoryFactory {
                 accessory.setCost(5);
                 break;
             default:
-                logger.info("Unknown value.");
+                Printable.printInfo("Unknown value.");
         }
         return accessory;
     }
 }
-

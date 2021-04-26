@@ -1,15 +1,35 @@
 package model.flowers;
 
-import model.enums.RoseType;
+import model.enums.RoseColor;
 
+/**
+ * Util.
+ * <p>
+ * Date: apr 16, 2021
+ *
+ * @author Symaniuk Victoryia
+ */
 public class Rose extends Flower implements Prick {
-    private RoseType roseColor;
+    /**
+     * Filed rose color.
+     */
+    private RoseColor roseColor;
 
-    public RoseType getRoseColor() {
+    /**
+     * @return roseColor
+     * @see RoseColor
+     */
+    public RoseColor getRoseColor() {
         return roseColor;
     }
 
-    public void setRoseColor(RoseType roseColor) {
+    /**
+     * Method for setting the field rose color.
+     *
+     * @param roseColor RoseColor rose color
+     * @see RoseColor
+     */
+    public void setRoseColor(RoseColor roseColor) {
         this.roseColor = roseColor;
     }
 
@@ -21,12 +41,17 @@ public class Rose extends Flower implements Prick {
                 .append(", fresh = ").append(getFresh())
                 .append(", cost = ").append(getCost())
                 .append(", parasite = ").append(isParasite())
-                .append(", prick = ").append(prick()).toString();
-
+                .append(", prick = ").append(prick())
+                .append(", ").append(smell()).toString();
     }
 
     @Override
     public boolean prick() {
         return true;
+    }
+
+    @Override
+    public String smell() {
+        return "Rose smells lovely";
     }
 }
