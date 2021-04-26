@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<greenhouses xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.example.org/greenhouses"
+             xsi:schemaLocation="http://www.example.org/greenhouses greenhouses.xsd">
+
+
+    <greenhouse id="1">
+        <name>Tulip</name>
+        <soil>GROUND</soil>
+        <origin>Europe</origin>
+        <visual-parameters>
+            <colorStem>orange</colorStem>
+            <colorLeaf>red</colorLeaf>
+            <mediumSize>30</mediumSize>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>22</temperature>
+            <lighting>true</lighting>
+            <watering>200</watering>
+        </growing-tips>
+        <multiplying>SEEDS</multiplying>
+    </greenhouse>
+    <greenhouse id="2">
+        <name>Lily</name>
+        <soil>PODZOLIC</soil>
+        <origin>Europe</origin>
+        <visual-parameters>
+            <colorStem>white</colorStem>
+            <colorLeaf>white</colorLeaf>
+            <mediumSize>45</mediumSize>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>16</temperature>
+            <lighting>true</lighting>
+            <watering>300</watering>
+        </growing-tips>
+        <multiplying>LEAVES</multiplying>
+    </greenhouse>
+    <greenhouse id="3">
+        <name>Clove</name>
+        <soil>SOD_PODZOLIC</soil>
+        <origin>Asia</origin>
+        <visual-parameters>
+            <colorStem>green</colorStem>
+            <colorLeaf>yellow</colorLeaf>
+            <mediumSize>60</mediumSize>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>14</temperature>
+            <lighting>true</lighting>
+            <watering>150</watering>
+        </growing-tips>
+        <multiplying>CUTTINGS</multiplying>
+    </greenhouse>
+</greenhouses>
