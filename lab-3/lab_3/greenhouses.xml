@@ -2,8 +2,6 @@
 <greenhouses xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns="http://www.example.org/greenhouses"
              xsi:schemaLocation="http://www.example.org/greenhouses greenhouses.xsd">
-
-
     <greenhouse id="1">
         <name>Tulip</name>
         <soil>GROUND</soil>

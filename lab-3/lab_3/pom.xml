@@ -24,5 +24,10 @@
             <artifactId>log4j-core</artifactId>
             <version>2.4.1</version>
         </dependency>
+        <dependency>
+            <groupId>net.java.dev.stax-utils</groupId>
+            <artifactId>stax-utils</artifactId>
+            <version>20070216</version>
+        </dependency>
     </dependencies>
 </project>

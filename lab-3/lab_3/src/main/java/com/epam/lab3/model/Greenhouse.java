@@ -8,12 +8,12 @@ package com.epam.lab3.model;
  * @author Viktoria Symaniuk
  */
 public class Greenhouse {
+    private final VisualParameters parameters = new VisualParameters();
+    private final GrowingTips tips = new GrowingTips();
     private String id;
     private String name;
     private SoilType soilType;
     private String origin;
-    private VisualParameters parameters = new VisualParameters();
-    private GrowingTips tips = new GrowingTips();
     private MultiplyingType multiplyingType;
 
     /**

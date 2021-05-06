@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.epam.lab3.Printable.printGreenhouses;
+import static com.epam.lab3.Printable.printInfo;
+import static com.epam.lab3.Printable.printWarning;
 import static com.epam.lab3.randomizer.RandomChangesGreenhouse.randomChanges;
 
 /**
@@ -36,25 +38,50 @@ public final class Main {
      * Method for start algorithm of programs.
      *
      * @param args arguments
-     * @throws IOException        exception in file
-     * @throws XMLStreamException exception in XMLStream
      */
-    public static void main(String[] args) throws IOException, XMLStreamException {
+    public static void main(String[] args) {
         GreenhouseXmlValidator validator = new GreenhouseXmlValidator(SCHEMA_FILE_NAME, XML_FILE_NAME);
-        if (validator.validate()) {
-            GreenhouseXmlReader reader = new GreenhouseXmlReader();
-            List<Greenhouse> greenhouses = reader.read(XML_FILE_NAME);
+        try {
+            if (validator.validate()) {
+                List<Greenhouse> greenhouses = readFromFile();
 
-            randomChanges(greenhouses);
+                randomChanges(greenhouses);
 
-            greenhouses.sort(new TemperatureComparator());
-            printGreenhouses(greenhouses);
+                printInfo("Sort by temperature: ");
+                greenhouses.sort(new TemperatureComparator());
+                printGreenhouses(greenhouses);
 
-            greenhouses.sort(new OriginComparator());
-            printGreenhouses(greenhouses);
+                printInfo("\nSort by origin: ");
+                greenhouses.sort(new OriginComparator());
+                printGreenhouses(greenhouses);
 
-            GreenhouseXmlWriter writer = new GreenhouseXmlWriter();
-            writer.write(greenhouses, NEW_XML_FILE);
+                writeToFile(greenhouses);
+            }
+        } catch (IOException | XMLStreamException exception) {
+            printWarning(String.valueOf(exception));
         }
+    }
+
+    /**
+     * Method for writing to file greenhouses.
+     *
+     * @param greenhouses Greenhouse greenhouses
+     * @see Greenhouse
+     */
+    private static void writeToFile(List<Greenhouse> greenhouses) {
+        GreenhouseXmlWriter writer = new GreenhouseXmlWriter();
+        writer.write(greenhouses, NEW_XML_FILE);
+    }
+
+    /**
+     * Method for reading from file greenhouses.
+     *
+     * @return List list of greenhouses
+     * @throws XMLStreamException exception
+     * @see Greenhouse
+     */
+    private static List<Greenhouse> readFromFile() throws XMLStreamException {
+        GreenhouseXmlReader reader = new GreenhouseXmlReader();
+        return reader.read(XML_FILE_NAME);
     }
 }

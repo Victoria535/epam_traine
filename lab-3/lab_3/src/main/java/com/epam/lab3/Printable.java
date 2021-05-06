@@ -3,6 +3,9 @@ package com.epam.lab3;
 import com.epam.lab3.model.Greenhouse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xml.sax.SAXParseException;
+
+import java.util.List;
 
 /**
  * Class for print some information.
@@ -28,19 +31,28 @@ public final class Printable {
      *
      * @param greenhouses List<Greenhouse> list of greenhouses
      */
-    static void printGreenhouses(java.util.List<Greenhouse> greenhouses) {
+    static void printGreenhouses(List<Greenhouse> greenhouses) {
         for (Greenhouse greenhouse : greenhouses) {
             LOGGER.info(greenhouse);
         }
     }
 
     /**
-     * Method for print info.
+     * Method for print warning.
      *
-     * @param info String info for print
+     * @param warning String warning for print
      */
-    static void printInfo(String info) {
-        LOGGER.info(String.format(info));
+    public static void printWarning(String warning) {
+        LOGGER.warn(warning);
+    }
+
+    /**
+     * Method for print information.
+     *
+     * @param info String information for print
+     */
+    public static void printInfo(String info) {
+        LOGGER.info(info);
     }
 
     /**
@@ -49,11 +61,9 @@ public final class Printable {
      * @param exception SAXParseException  exception
      * @return StringBuilder error
      */
-    public static StringBuilder printErrorInfo(org.xml.sax.SAXParseException exception) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(BRACKET_LEFT).append(exception.getLineNumber())
-                .append(COLON).append(exception.getColumnNumber()).append(BRACKET_RIGHT);
-        builder.append('\n').append(exception.getLocalizedMessage()).append('\n');
-        return builder;
+    public static StringBuilder printErrorInfo(SAXParseException exception) {
+        return new StringBuilder().append(BRACKET_LEFT).append(exception.getLineNumber())
+                .append(COLON).append(exception.getColumnNumber()).append(BRACKET_RIGHT)
+                .append('\n').append(exception.getLocalizedMessage()).append('\n');
     }
 }
