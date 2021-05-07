@@ -22,7 +22,6 @@ import static worker.Printable.printWarning;
  * @author Symaniuk Victoryia
  */
 public final class Main {
-
     /**
      * Constructor.
      */
@@ -46,7 +45,7 @@ public final class Main {
         List<Accessory> accessories = createAccessories();
         int count = 10;
         Bouquet bouquet = newBouquet(count, accessories);
-        printBouquet(bouquet);
+        printBouquet(bouquet.toString());
         sortByFresh(bouquet);
         int begin = 70;
         int end = 20;
@@ -69,10 +68,9 @@ public final class Main {
         try {
             findStemLength(bouquet, begin, end);
             findStemLengthAndCost(bouquet, begin, end, startCost, finishCost);
-        } catch (FilterException ex) {
-            printWarning("%s. start = %s, finish = %s.", ex.getMessage(), ex.getStart(), ex.getFinish());
+        } catch (FilterException exception) {
+            printWarning("{}. start = {}, finish = {}.",
+                    exception.getMessage(), exception.getStart(), exception.getFinish());
         }
     }
 }
-
-

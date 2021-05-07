@@ -16,7 +16,6 @@ import static worker.Printable.printInfo;
  * @author Symaniuk Victoryia
  */
 public class FlowerFactory implements Factory<Flower, FlowerType> {
-
     @Override
     public Flower create(FlowerType type) {
         Flower flower = null;

@@ -7,7 +7,6 @@ import model.accessories.Wrapper;
 import model.enums.AccessoryType;
 import worker.Printable;
 
-
 /**
  * Accessory factory for create accessories.
  * <p>
@@ -16,7 +15,6 @@ import worker.Printable;
  * @author Symaniuk Victoryia
  */
 public class AccessoryFactory implements Factory<Accessory, AccessoryType> {
-
     @Override
     public Accessory create(AccessoryType type) {
         Accessory accessory = null;

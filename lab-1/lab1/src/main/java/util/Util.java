@@ -20,7 +20,6 @@ import static worker.Printable.printResult;
  * @author Symaniuk Victoryia
  */
 public final class Util {
-
     /**
      * Constructor.
      */

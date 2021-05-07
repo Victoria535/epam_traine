@@ -3,7 +3,7 @@ package model.flowers;
 import model.enums.RoseColor;
 
 /**
- * Util.
+ * Rose.
  * <p>
  * Date: apr 16, 2021
  *

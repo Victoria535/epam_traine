@@ -9,6 +9,7 @@ import java.util.List;
 
 import static builder.randomizer.FlowerRandomizer.randomFlower;
 import static builder.randomizer.NumberRandomizer.randomNumber;
+import static worker.Printable.printWarning;
 
 /**
  * Bouquet builder.
@@ -48,10 +49,10 @@ public final class BouquetBuilder {
     private static void checkNumber(int count) {
         try {
             if (count < 0) {
-                throw new InvalidNumberException("Number should be more than 0", count);
+                throw new InvalidNumberException("Number should be greater than 0", count);
             }
         } catch (InvalidNumberException ex) {
-            ex.printStackTrace();
+            printWarning(String.valueOf(ex));
         }
     }
 

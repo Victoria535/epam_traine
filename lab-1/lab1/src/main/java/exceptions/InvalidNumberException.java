@@ -18,14 +18,4 @@ public class InvalidNumberException extends CommonFlowerException {
     public InvalidNumberException(String message, int number) {
         super(message, String.valueOf(number));
     }
-
-    /**
-     * Constructor.
-     *
-     * @param message String message exception
-     */
-    public InvalidNumberException(String message) {
-        super(message);
-    }
-
 }

@@ -42,7 +42,7 @@ public final class ParasiteRandomizer {
      * @param flowers List<Flower> flowers of bouquet
      * @throws FlowerFreshException cannot add not fresh flower in bouquet
      */
-    private static void checkFlowersForParasite(List<Flower> flowers) throws FlowerFreshException {
+    private static void checkFlowersForParasite(List<Flower> flowers) {
         for (Flower flower : flowers) {
             if (checkParasite(flower)) {
                 flower.setParasite(false);

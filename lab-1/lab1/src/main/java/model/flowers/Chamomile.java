@@ -1,7 +1,7 @@
 package model.flowers;
 
 /**
- * Util.
+ * Chamomile.
  * <p>
  * Date: apr 16, 2021
  *

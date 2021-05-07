@@ -1,7 +1,7 @@
 package model.flowers;
 
 /**
- * Util.
+ * Tulip.
  * <p>
  * Date: apr 16, 2021
  *
